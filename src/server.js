@@ -8,14 +8,13 @@ const PORT = 4000;
 
 const app = express();
 const logger = morgan("dev");
-
-const handleListening = () => console.log(`Listening to ${PORT}`)
-
-
-
 app.use(logger);
+
 app.use("/", globalRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
+
+
+const handleListening = () => console.log(`Listening to ${PORT}`)
 
 app.listen(PORT, handleListening); 
