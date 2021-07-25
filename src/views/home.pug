@@ -1,7 +1,10 @@
 extends base.pug
 
-block head 
-    title Home | Wetube
-
 block content
     h1 Home
+    input(placeholder="What you name?")
+    button aaa
+
+    ul     
+        each item in videos
+            li=item 
