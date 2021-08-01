@@ -1,30 +1,7 @@
-const videos = [{
-    title : "Herry Poter",
-    rating : 5,
-    comments : 2,
-    createdAt: "2 minutes ago",
-    views:59,
-    id:1,
- },
- {
-     title : "Azecvan",
-     rating : 5,
-     comments : 2,
-     createdAt: "2 minutes ago",
-     views:59,
-     id:2,  
- },
- {
-     title : "Yes am",
-     rating : 5,
-     comments : 2,
-     createdAt: "2 minutes ago",
-     views:59,
-     id:3,
- }];
+import Video from "../models/Video";
 
-
-export const home = (req, res) => {
+export const home = async(req, res) => {
+    const videos = await Video.find({});
     return res.render("home", { pageTitle: "Home", videos});
 }
 
@@ -54,17 +31,20 @@ export const search = (req, res) => res.send("Search Video");
 
 
 export const getUpload = (req, res) => res.render("upload");
-export const postUpload = (req, res) => {
-    const { uploadTitle } = req.body;
-    const newVideo = {
-        title:uploadTitle,
-        rating : 0,
-        comments : 0,
-        createdAt: "2 minutes ago",
-        views: 0,
-        id: videos.length + 1
-    };
-    videos.push(newVideo);
+
+export const postUpload = async(req, res) => {
+    const { title, description, hashtags } = req.body;
+    await Video.create({
+        title,
+        description,
+        createdAt: Date.now(),
+        hashtags:hashtags.split(",").map(word=>`#${word}`),
+        meta:{
+            views:0,
+            rating:0,
+        },
+    });
+    //await video.save();
     return res.redirect("/");
 };
 
