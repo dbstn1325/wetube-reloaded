@@ -15,8 +15,7 @@ export const watch = (req, res) => {
 
 export const getEdit = (req, res) => {
     const { id } = req.params;
-    const video=videos[id-1];
-    res.render("edit", {pageTitle: "Edit", video});
+    res.render("edit", {pageTitle: "Edit"});
 }
 
 export const postEdit = (req, res) => {
@@ -34,6 +33,7 @@ export const getUpload = (req, res) => res.render("upload");
 
 export const postUpload = async(req, res) => {
     const { title, description, hashtags } = req.body;
+    const { id } = req.params;
     await Video.create({
         title,
         description,
@@ -44,6 +44,7 @@ export const postUpload = async(req, res) => {
             rating:0,
         },
     });
+    console.log(id);
     //await video.save();
     return res.redirect("/");
 };
