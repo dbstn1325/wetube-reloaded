@@ -6,9 +6,8 @@ export const home = async(req, res) => {
 }
 
 
-export const watch = (req, res) => {
-    const { id } = req.params;
-    const video=videos[id-1];
+export const watch = async(req, res) => {
+    const video = await Video.find({});
     res.render("watch", { pageTitle: `you Watching ${video.title}`, video});
     //res.send(`Watch Video #${req.params.id}`);
 }
@@ -18,11 +17,12 @@ export const getEdit = (req, res) => {
     res.render("edit", {pageTitle: "Edit"});
 }
 
-export const postEdit = (req, res) => {
-    const { id } = req.params;
+export const postEdit = async(req, res) => {
+    const video = await Video.find({});
     const { title } = req.body;
-    videos[id-1].title=title;
-    res.redirect(`/videos/${id}`);
+    const user_id = videos._id;
+    /*videos[user_id-1].title=title;*/
+    res.redirect(`/videos/${user_id}`, video);
 }
 
 
@@ -33,7 +33,7 @@ export const getUpload = (req, res) => res.render("upload");
 
 export const postUpload = async(req, res) => {
     const { title, description, hashtags } = req.body;
-    const { id } = req.params;
+    const user_id = req.query.id;
     await Video.create({
         title,
         description,
@@ -43,10 +43,12 @@ export const postUpload = async(req, res) => {
             views:0,
             rating:0,
         },
+        _id : user_id,
     });
-    console.log(id);
+    
     //await video.save();
-    return res.redirect("/");
+    return res.redirect("home", {_id: user_id});
+    
 };
 
 

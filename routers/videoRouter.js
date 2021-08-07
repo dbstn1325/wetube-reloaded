@@ -3,12 +3,12 @@ import {getUpload, postUpload, watch, getEdit, postEdit, deleteVideo} from "../c
 
 const videoRouter = express.Router();
 
-
-videoRouter.get("/:id(\\d+)", watch);
-videoRouter.route("/:id(\\d+)/edit").get(getEdit).post(postEdit);
+videoRouter.route("/upload").get(getUpload).post(postUpload);
+videoRouter.get("/:id", watch);
+videoRouter.route("/:id/edit").get(getEdit).post(postEdit);
 // videoRouter.get("/:id(\\d+)/edit", getEdit);
 // videoRouter.post("/:id(\\d+)/edit", postEdit);
-videoRouter.get("/:id(\\d+)/delete", deleteVideo);
-videoRouter.route("/upload").get(getUpload).post(postUpload);
+videoRouter.get("/:id/delete", deleteVideo);
+
 
 export default videoRouter;
