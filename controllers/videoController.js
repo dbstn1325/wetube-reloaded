@@ -13,7 +13,7 @@ export const watch = async(req, res) => {
 }
 
 export const getEdit = async(req, res) => {
-    const video= await Video.find({});
+    const video = await Video.find({});
     res.render("edit", {pageTitle: "Edit", video});
 }
 
@@ -34,21 +34,27 @@ export const getUpload = (req, res) => res.render("upload");
 export const postUpload = async(req, res) => {
     const { title, description, hashtags } = req.body;
     const user_id = req.query.id;
-    await Video.create({
-        title,
-        description,
-        createdAt: Date.now(),
-        hashtags:hashtags.split(",").map(word=>`#${word}`),
-        meta:{
-            views:0,
-            rating:0,
-        },
-        _id : user_id,
-    });
-    
-    //await video.save();
-    return res.redirect("home", {_id: user_id});
-    
+        try{ await Video.create({
+            title,
+            description,
+            createdAt: Date.now(),
+            hashtags:hashtags.split(",").map(word=>`#${word}`),
+            meta:{
+                views:0,
+                rating:0,
+            },
+            _id : user_id,
+        });
+        
+        //await video.save();
+        return res.redirect("home", {_id: user_id});
+    }catch(error){
+        res.render("upload", {
+            pageTitle:"Upload Video",
+            errorMessage:error._Message
+        })
+    }
+
 };
 
 
