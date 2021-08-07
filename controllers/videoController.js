@@ -12,17 +12,17 @@ export const watch = async(req, res) => {
     //res.send(`Watch Video #${req.params.id}`);
 }
 
-export const getEdit = (req, res) => {
-    const { id } = req.params;
-    res.render("edit", {pageTitle: "Edit"});
+export const getEdit = async(req, res) => {
+    const video= await Video.find({});
+    res.render("edit", {pageTitle: "Edit", video});
 }
 
 export const postEdit = async(req, res) => {
     const video = await Video.find({});
     const { title } = req.body;
-    const user_id = videos._id;
+    const user_id = req.query.id;
     /*videos[user_id-1].title=title;*/
-    res.redirect(`/videos/${user_id}`, video);
+    res.render(`/videos/${user_id}`, video);
 }
 
 
