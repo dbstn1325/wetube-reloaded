@@ -5,7 +5,7 @@ block content
     div
         p=video.description
         small=video.createdAt 
-        
-    a(href=`${video.id}/edit`) Edit Video &rrar;
+
+    a(href=`/videos/${video._id}/edit`) Edit Video &rarr;
 
     h4 #{video.views} #{video.views === 1 ? "view":"views"}
