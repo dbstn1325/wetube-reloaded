@@ -7,8 +7,9 @@ export const home = async(req, res) => {
 
 
 export const watch = async(req, res) => {
-    const video = await Video.find({});
-    res.render("watch", { pageTitle: `you Watching ${video.title}`, video});
+    const { id } = req.params;
+    const video = await Video.findById(id);
+    res.render("watch", { pageTitle: video.title, video});
     //res.send(`Watch Video #${req.params.id}`);
 }
 
