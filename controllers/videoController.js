@@ -1,7 +1,8 @@
 import Video from "../models/Video";
+import { modifyHashtags } from "../models/Video";
 
 export const home = async(req, res) => {
-    const videos = await Video.find({});
+    const videos = await Video.find({}).sort({createdAt:"desc"});
     return res.render("home", { pageTitle: "Home", videos});
 }
 
@@ -31,30 +32,33 @@ export const postEdit = async(req, res) => {
     
     const video = await Video.findById(id);
 
-    video.title=title;
-    video.description=description;
-    video.hashtags=hashtags.split(",").map((word)=>(word.startsWith("#") ? word : `#${word}`));
+    await Video.findByIdAndUpdate(id, {
+        title,
+        description,
+        hashtags:Video.modifyHashtags(hashtags),
+    });
 
-    await video.save();
     
     return res.redirect(`/videos/${id}`);
 }
 
 
-export const search = (req, res) => res.send("Search Video");
+export const search = (req, res) => {
+    return res.render("search");
+}
 
 
 export const getUpload = (req, res) => res.render("upload");
 
 export const postUpload = async(req, res) => {
     const { title, description, hashtags } = req.body;
-    const user_id = req.query.id;
+    const { id } = req.params;
+    
     try{
         await Video.create({
             title,
             description,
-            hashtags:hashtags.split(",").map((word) => (word.startsWith("#") ? word : `#${word}`)),
-            //_id : user_id, , {_id: user_id}
+            hashtags:Video.modifyHashtags(hashtags)
         });
         //await video.save();       <-- new Video({  }) ( Video.create() )사용안할때
         return res.redirect("/");
@@ -69,4 +73,8 @@ export const postUpload = async(req, res) => {
 };
 
 
-export const deleteVideo = (req, res) => res.send("Delete Video");
+export const getDelete = async(req, res) => {
+    const { id } = req.params;
+    await Video.findByIdAndDelete(id);
+    return res.redirect("/");
+};

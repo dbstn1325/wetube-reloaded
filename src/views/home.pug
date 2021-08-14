@@ -1,16 +1,12 @@
 extends base.pug
 include mixins/video.pug
 
+
 block content
     h1 Home
     input(placeholder="What you name?")
     button aaa
     
-    nav    
-        ul      
-            h1
-                a(href="/videos/upload") Upload Video
-
     each item in videos
         +video(item)
     else 
