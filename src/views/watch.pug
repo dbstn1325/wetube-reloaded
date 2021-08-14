@@ -13,7 +13,7 @@ block content
         a(href=`/videos/${video.id}/delete`) Delete Video &rarr;
 
     ul 
-        each hashtag in video.hashtags      //이미hashtag안에하나씩담겨있음.
+        each hashtag in video.hashtags      
             li=hashtag
 
     h4 #{video.views} #{video.views === 1 ? "0 view":"views"}

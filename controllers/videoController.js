@@ -30,29 +30,34 @@ export const postEdit = async(req, res) => {
     const { id } = req.params;
     const {title, description, hashtags} = req.body;
     
-    const video = await Video.findById(id);
-
-    await Video.findByIdAndUpdate(id, {
-        title,
-        description,
-        hashtags:Video.modifyHashtags(hashtags),
-    });
-
+    const video = await Video.exists({ _id:id});
     
-    return res.redirect(`/videos/${id}`);
+    if(video){
+        await Video.findByIdAndUpdate(id, {
+            title,
+            description,
+            hashtags:Video.modifyHashtags(hashtags),
+        });
+        return res.redirect(`/videos/${id}`);
+    };
+    return res.render("404", {pageTitle:`The process is false`});
+    
+    
 }
 
 
 export const getSearch = async(req, res) => {
-    
-    let videos=[];
-
-    console.log(req.query);
+    let videos=[]
     res.render("search", { pageTitle:`Search For `, videos});
 }
 
 export const postSearch = async(req,res) =>{
-    
+    const { keyword } = req.body;
+    let videos=[];
+    if(keyword){
+        videos = await Video.find({title : {$regex:new RegExp(keyword, "i")} });
+    }
+    res.render("search", { pageTitle:`Search For : ${keyword}`, videos}); 
 }
 
 
