@@ -1,6 +1,13 @@
-include base.pug
+extends base.pug
+include mixins/video.pug
 
-block content 
-    form(method="POST")
-        input(placeholder="Search Video", type="text")
-        input(type="submit", value="Search!")
+block content
+    h4
+        form(method="POST")
+            input(placeholder="Search Video", type="text", name="keyword")
+            input(type="submit", value="Search!")
+            
+    div
+        each video in videos
+            +video(video)
+            

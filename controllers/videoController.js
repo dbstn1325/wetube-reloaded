@@ -13,7 +13,7 @@ export const watch = async(req, res) => {
     if(!video){
         return res.render("404", {pageTitle : 'Video is not found'});
     }
-    return res.render("watch", {pageTitle : video.title, video});
+    return res.render("watch", {pageTitle : video.title, video });
     //res.send(`Watch Video #${req.params.id}`);
 }
 
@@ -43,8 +43,16 @@ export const postEdit = async(req, res) => {
 }
 
 
-export const search = (req, res) => {
-    return res.render("search");
+export const getSearch = async(req, res) => {
+    
+    let videos=[];
+
+    console.log(req.query);
+    res.render("search", { pageTitle:`Search For `, videos});
+}
+
+export const postSearch = async(req,res) =>{
+    
 }
 
 

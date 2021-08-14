@@ -1,4 +1,5 @@
 extends base.pug
+include mixins/video.pug
 
 block content
     
@@ -7,7 +8,12 @@ block content
         small=video.createdAt 
 
     a(href=`/videos/${video.id}/edit`) Edit Video &rarr;
+
     div 
         a(href=`/videos/${video.id}/delete`) Delete Video &rarr;
 
-    h4 #{video.views} #{video.views === 1 ? "view":"views"}
+    ul 
+        each hashtag in video.hashtags      //이미hashtag안에하나씩담겨있음.
+            li=hashtag
+
+    h4 #{video.views} #{video.views === 1 ? "0 view":"views"}

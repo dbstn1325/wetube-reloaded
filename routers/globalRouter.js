@@ -1,5 +1,5 @@
 import express from "express";
-import { home, search } from "../controllers/videoController";
+import { home, getSearch, postSearch } from "../controllers/videoController";
 import { join, login } from "../controllers/userControllers";
 
 const globalRouter = express.Router();
@@ -7,6 +7,6 @@ const globalRouter = express.Router();
 globalRouter.get("/", home);
 globalRouter.get("/join", join);
 globalRouter.get("/login", login);
-globalRouter.get("/search", search);
+globalRouter.route("/search").get(getSearch).post(postSearch);
 
 export default globalRouter;
