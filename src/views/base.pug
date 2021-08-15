@@ -4,14 +4,20 @@ html(lang="ko")
         title #{pageTitle} | Wetube
         link(rel="stylesheet" href="https://unpkg.com/mvp.css")
     body
-        h3
-            a(href="/") Home
-        h3  
-            a(href="/videos/upload") Upload Video
-        h2 
-            a(href="/search") Search
+        header
+            h1=pageTitle
+            nav
+                ul 
+                    li 
+                        a(href="/") Home
+                    li
+                        a(href="/videos/upload") Upload Video
+                    li
+                        a(href="/search") Search
+                    li
+                        a(href="/join") Join
         main
             block content
             
-        include partials/footer.pug
+    include partials/footer.pug
         
