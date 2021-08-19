@@ -54,15 +54,18 @@ export const postLogin = async(req, res) => {
         });
     }
     const passwords = await bcrypt.compare(password1, user.password1);
-    
+
     if(!passwords){
         return res.status(400).render("login", {
             pageTitle:"Login",
             errorMessage:"PW is not exists "
         })
     }
+    
+    req.session.loggedIn=true;
+    req.session.user=user;
 
-    return res.end();
+    return res.redirect("/");
 }
 
 export const edit = (req, res) => res.send("Edit User");
