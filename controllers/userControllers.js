@@ -45,13 +45,13 @@ export const getLogin = (req, res) => {
 
 export const postLogin = async(req, res) => {
     const { userid, password1 } = req.body;
-    const user = await User.findOne({userid});
+    const user = await User.findOne({userid, socialOnly:false});
 
     
     if(!user){
         return res.status(400).render("login", {
             pageTitle:"Login",
-            errorMessage:"id is not exists "
+            errorMessage:"id is not exists"
         });
     }
     const passwords = await bcrypt.compare(password1, user.password1);
@@ -74,7 +74,7 @@ export const startGithubLogin = (req, res) => {
     const config = {
         client_id:"ee9a21a21a09d9a3c2b1",
         allow_signup:false,
-        scope:"user:user user:email",
+        scope:"read:user user:email",
     };
     const params = new URLSearchParams(config).toString();
     const finalUrl = `${baseUrl}`+`${params}`;
@@ -91,7 +91,8 @@ export const finishGithubLogin = async(req, res) => {
         
     }
     const params = new URLSearchParams(config).toString();
-    const finalUrl=`${baseUrl}`+`${params}`
+    const finalUrl=`${baseUrl}`+`${params}`;
+
     const tokenRequest = await(
         await fetch(finalUrl, {
         method:"POST",
@@ -100,19 +101,51 @@ export const finishGithubLogin = async(req, res) => {
         }
     })).json();
     
-    res.send(tokenRequest);
+    //res.send(tokenRequest);
     if("access_token" in tokenRequest){
         const { access_token } = tokenRequest;
+        const apiUrl = "https://api.github.com";
         const userRequest = await(
-            await fetch("https://api.github.com/user",{
+            await fetch(`${apiUrl}/user`,{
             headers:{
                 Authorization: `token ${access_token}`,
             },
         })).json();
         console.log(userRequest);
-    }else{
-        res.redirect("/login");
-    }
+        
+        const emailRequest = await(
+            await fetch(`${apiUrl}/user/emails`,{
+                headers:{
+                    Authorization: `token ${access_token}`,
+                },
+            })).json();
+        console.log(emailRequest);
+        const emailFind = emailRequest.find(
+            (email) => email.primary===true && email.verified===true
+        );
+
+        if(!emailFind){
+            return res.redirect("/login");
+        }
+
+        let email = await User.findOne({email:emailFind.email});
+            if(!email){
+                email = await User.create({
+                    userid:userRequest.login,
+                    avatarUrl:userRequest.avatar_url,
+                    socialOnly:true,
+                    email:emailFind.email,
+                    password1:"",
+            })};
+            req.session.loggedIn=true;
+            req.session.user=email;
+            return res.redirect("/");
+        }
+
+        else{
+        return res.redirect("/login");
+        }
+    
 
 
     
@@ -122,5 +155,8 @@ export const finishGithubLogin = async(req, res) => {
 
 export const edit = (req, res) => res.send("Edit User");
 export const remove = (req, res) => res.send("Remove User");
-export const logout = (req, res) => res.send("Logout");
+export const logout = (req, res) => {
+    req.session.destroy();
+    res.redirect("/");
+}
 export const see = (req, res) => res.send("See");

@@ -3,11 +3,13 @@ import mongoose from "mongoose";
 
 
 const userSchema = new mongoose.Schema({
-    userid : {type : String, required: true},
+    userid : {type : String, required: true, unique:true},
+    avatarUrl : String,
+    socialOnly:{type:Boolean, default:false},
     email : {type : String, required: true, unique:true},
-    username : {type : String, required:true, unique:true},
-    password1 : {type:String, required:true},
-    password2 : {type:String, required:true},
+    username : {type : String},
+    password1 : {type:String},
+    password2 : {type:String},
     location : String,
 });
 
