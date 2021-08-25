@@ -1,0 +1,9 @@
+extends ../base.pug
+include ../mixins/video
+
+block content 
+    each item in foundUser.videos
+        +video(item)
+    else 
+        li sorry nothing found.
+    

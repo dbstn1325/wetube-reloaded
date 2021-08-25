@@ -13,6 +13,6 @@ userRouter.route("/edit-profile").all(publicMiddleware).get(getEdit).post(avatar
 userRouter.get("/github/start", protectorMiddleware, startGithubLogin);
 userRouter.get("/github/finish", publicMiddleware, finishGithubLogin);
 userRouter.route("/change-password").all(publicMiddleware).get(getChangePassword).post(postChangePassword);
-userRouter.get(":id", see);
+userRouter.get("/:id", see);
 
 export default userRouter;
