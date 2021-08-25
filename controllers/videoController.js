@@ -26,14 +26,17 @@ export const getEdit = async(req, res) => {
 }
 
 export const postEdit = async(req, res) => {
+    const { _id, avatarUrl } = req.session.user;
     const { id } = req.params;
     const {title, description, hashtags} = req.body;
+    const { file } = req;
     
     const video = await Video.exists({ _id:id});
     
     if(video){
-        await Video.findByIdAndUpdate(id, {
+        await Video.findByIdAndUpdate(_id, {
             title,
+            avataUrl: file ? file.path : avatarUrl,
             description,
             hashtags:Video.modifyHashtags(hashtags),
         });
@@ -60,15 +63,19 @@ export const postSearch = async(req,res) =>{
 }
 
 
-export const getUpload = (req, res) => res.render("upload");
+export const getUpload = (req, res) => {
+    
+    return res.render("upload");
+}
 
 export const postUpload = async(req, res) => {
+    const { path:fileUrl }=req.file
     const { title, description, hashtags } = req.body;
     const { id } = req.params;
-    
     try{
         await Video.create({
             title,
+            fileUrl,
             description,
             hashtags:Video.modifyHashtags(hashtags)
         });

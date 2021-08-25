@@ -3,6 +3,7 @@ include mixins/video.pug
 
 block content
     
+    video(src="/" + video.fileUrl, controls)
     div
         p=video.description
         small=video.createdAt 
