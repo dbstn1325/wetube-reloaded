@@ -245,7 +245,6 @@ export const see = async(req, res) => {
     if(!foundUser){
         return res.status(404).render("404", { pageTitle : "User is not exist"})
     }
-    const videos = await Video.find({owner:foundUser._id});
     return res.render("users/profile", {
         pageTitle : `User Profile`,
         foundUser
