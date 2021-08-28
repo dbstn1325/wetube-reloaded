@@ -11,6 +11,7 @@ block content
         input(placeholder="Confirm Password", type="password", name="password2")
         input(placeholder="Location", type="text", name="location")
         input(type = "submit", value="Join")
-
-    div
-        a(href="/login") if you user? &rarr;
+        include partials/social-login.pug
+    div.auth-switch
+        span Already have an account? 
+        a(href="/login") Log in now &rarr;
