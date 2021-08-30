@@ -2,22 +2,17 @@ extends base.pug
 include mixins/video.pug
 
 block content
-    
-    video(src="/" + video.fileUrl, controls)
+    video(src="/" + video.fileUrl)
+    div 
+        button#play Play 
+        button#mute Mute
+        input(type="range", step="0.1", min="0", max="1")#volume
+    div 
+        span#currenTime 00:00
+        span  / 
+        span#totalTime 00:00
     div
-        p=video.description
-        small=video.createdAt
-        br
-        small Produced By 
-            a(href=`/users/${video.owner._id}`) #{video.owner.userid}
-
-    if String(video.owner._id) === String(user._id)
-        a(href=`/videos/${video.id}/edit`) Edit Video &rarr;
-        br
-        a(href=`/videos/${video.id}/delete`) Delete Video &rarr;
-
-    ul 
-        each hashtag in video.hashtags      
-            li=hashtag
-
-    h4 #{video.views} #{video.views === 1 ? "0 view":"views"}
+        input(type="range", step="1", min="0")#timeLine
+    
+block scripts
+    script(src="/static/js/videoPlayer.js")

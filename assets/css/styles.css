@@ -77,6 +77,11 @@ header .header__btn {
 header i {
   font-size: 16px;
 }
+header .header__avatar {
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+}
 
 footer {
   text-align: center;
@@ -137,7 +142,7 @@ form {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-input {
+input:not(input[type=range]) {
   all: unset;
   padding: 15px 20px;
   border-radius: 5px;
@@ -148,7 +153,7 @@ input {
   color: white;
   width: 90%;
 }
-input::placeholder {
+input:not(input[type=range])::placeholder {
   color: rgba(255, 255, 255, 0.7);
 }
 
@@ -171,35 +176,6 @@ input[type=submit],
 .social-login .social__btn--github {
   background-color: transparent;
   color: azure;
-}
-
-.profile__data {
-  max-width: 420px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 50px;
-}
-.profile__data img {
-  margin-bottom: 10px;
-}
-.profile__data h3 {
-  font-size: 18px;
-}
-
-.edit-profile__form label {
-  font-size: 14px;
-  margin-bottom: 10px;
-  display: block;
-}
-
-.edit-profile__password {
-  margin-top: 50px;
-  text-align: center;
-}
-.edit-profile__password a {
-  text-decoration: underline;
 }
 
 .search__form {
@@ -229,6 +205,35 @@ input[type=submit],
   background-color: rgba(0, 0, 0, 0);
   text-align: center;
   cursor: pointer;
+}
+
+.profile__data {
+  max-width: 420px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
+.profile__data img {
+  margin-bottom: 10px;
+}
+.profile__data h3 {
+  font-size: 18px;
+}
+
+.edit-profile__form label {
+  font-size: 14px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.edit-profile__password {
+  margin-top: 50px;
+  text-align: center;
+}
+.edit-profile__password a {
+  text-decoration: underline;
 }
 
 a {
