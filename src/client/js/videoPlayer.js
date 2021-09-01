@@ -1,3 +1,5 @@
+import fetch from "node-fetch";
+
 const video = document.querySelector("video");
 const  playBtn = document.getElementById("play");
 const  muteBtn = document.getElementById("mute");
@@ -5,7 +7,12 @@ const  currenTime = document.getElementById("currenTime");
 const  totalTime = document.getElementById("totalTime");
 const  volumeRange = document.getElementById("volume");
 const timeLine = document.getElementById("timeLine");
+const fullscreen = document.getElementById("fullScreen");
+const videoContainer = document.getElementById("videoContainer");
+const videoControls = document.getElementById("videoControls");
 
+let controlsMovementTimeout = null;
+let controlsTimeout = null;
 let volumeValue = 0.5;
 video.volume = volumeValue;
 
@@ -38,7 +45,7 @@ const handleVolumeChange = (event) => {
         muteBtn.innerText="Mute";
     }
     volumeValue = value;
-    video.volume = value;               //실제볼륨
+    video.volume = value;              //실제볼륨
 }
 
 
@@ -58,10 +65,58 @@ const handleTimeUpdate = () => {
     timeLine.value=video.currentTime;
 }
 const handleTimeLineChange = (event) => {
-    const { 
+    const {
         target : { value },
     } = event;
     video.currentTime=value;
+}
+
+const handleVideoFullScreen = () =>{
+    const fullscreenMode = document.fullscreenElement; //fullscreen일땐 1 
+    if(fullscreenMode) {                     
+        document.exitFullscreen();
+        fullscreen.innerText = "Click to FullScreen";
+    }else {
+        videoContainer.requestFullscreen();
+        fullscreen.innerText="Exit to FullScreen";
+    }
+}
+
+
+const handleMouseMove = () => {
+    if(controlsTimeout){        //떠났을때
+        clearTimeout(controlsTimeout);
+        controlsTimeout=null;
+    }
+    
+    if(controlsMovementTimeout){
+        clearTimeout(controlsMovementTimeout);
+        controlsMovementTimeout=null;
+    }
+
+   
+    videoControls.classList.add("showing");
+    controlsMovementTimeout = setTimeout( ()=> {
+        videoControls.classList.remove("showing");
+    }, 3000);
+    
+
+    
+}
+
+const handleMouseLeave = () => {
+    controlsTimeout = setTimeout( ()=> {
+        videoControls.classList.remove("showing");
+    }, 3000);
+}
+
+
+
+const handleEnded = () => {
+    const { id } = videoContainer.dataset;
+    fetch(`/api/videos/${id}/view`, {
+        method:"POST",
+    });
 }
 
 playBtn.addEventListener("click", handlePlayClick);
@@ -70,3 +125,9 @@ volumeRange.addEventListener("input", handleVolumeChange);
 video.addEventListener("loadedmetadata", handleMetaData);
 video.addEventListener("timeupdate", handleTimeUpdate);
 timeLine.addEventListener("input", handleTimeLineChange);
+fullscreen.addEventListener("click", handleVideoFullScreen);
+video.addEventListener("mousemove", handleMouseMove);
+video.addEventListener("mouseleave", handleMouseLeave);
+video.addEventListener("timeupdate", handleTimeUpdate);
+video.addEventListener("ended", handleEnded);
+
