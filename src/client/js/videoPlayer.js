@@ -22,11 +22,11 @@ const handlePlayClick = (e) =>{
     } else{
         video.pause();
     }
-    playBtn.innerText = video.paused ? "Play" : "Pause";
+    playBtn.innerHTML = video.paused ? '<i class="fas fa-play"></i>' : '<i class="fas fa-pause"></i>';
 }
 
 const handleMute = (e) =>{
-    muteBtn.innerText = !video.muted ? "UnMute" : "Mute";   //글자먼저바꾸고 음소거 시키기
+    muteBtn.innerHTML = !video.muted ? '<i class="fas fa-volume-off"></i>' : '<i class="fas fa-volume-mute"></i>';   //글자먼저바꾸고 음소거 시키기
     if(!video.muted){
         video.muted=true;
     }else{
@@ -40,10 +40,13 @@ const handleVolumeChange = (event) => {
     const {
         target : { value },
     } = event;
-    if(video.muted){
-        video.muted=false;
-        muteBtn.innerText="Mute";
-    }
+    // if(video.muted){
+    //     video.muted=false;
+    //     muteBtn.innerHTML='<i class="fas fa-volume-off"></i>';
+    // }else{
+    //     video.muted=true;
+    //     muteBtn.innerHTML='<i class="fas fa-volume-mute"></i>';
+    // }
     volumeValue = value;
     video.volume = value;              //실제볼륨
 }
@@ -56,10 +59,12 @@ const handlePause = (e) => playBtn.innerText="Pasue";
 const formatTime = (seconds) => {
     return new Date(seconds*1000).toISOString().substr(11, 8);
 }
+
 const handleMetaData = () => {
     totalTime.innerText = formatTime(Math.floor(video.duration));
-    timeLine.max=video.duration;
+    timeLine.max=Math.ceil(video.duration);
 }
+
 const handleTimeUpdate = () => {
     currenTime.innerText = formatTime(Math.floor(video.currentTime));
     timeLine.value=video.currentTime;
@@ -75,10 +80,10 @@ const handleVideoFullScreen = () =>{
     const fullscreenMode = document.fullscreenElement; //fullscreen일땐 1 
     if(fullscreenMode) {                     
         document.exitFullscreen();
-        fullscreen.innerText = "Click to FullScreen";
+        fullscreen.innerHTML = '<i class="fas fa-expand"></i>'
     }else {
         videoContainer.requestFullscreen();
-        fullscreen.innerText="Exit to FullScreen";
+        fullscreen.innerHTML='<i class="fas fa-compress"></i>';
     }
 }
 
@@ -94,13 +99,10 @@ const handleMouseMove = () => {
         controlsMovementTimeout=null;
     }
 
-   
     videoControls.classList.add("showing");
     controlsMovementTimeout = setTimeout( ()=> {
         videoControls.classList.remove("showing");
     }, 3000);
-    
-
     
 }
 

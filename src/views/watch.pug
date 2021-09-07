@@ -2,20 +2,23 @@ extends base.pug
 include mixins/video.pug
 
 block content
-    div#videoContainer(data-id=video._id)
+    div#videoContainer(data-id=video._id).watch__form
         video(src="/" + video.fileUrl)
         div#videoControls
-            button#play Play 
-            button#mute Mute
+            a#play
+                i.class.fas.fa-play
+            a#mute
+                i.class.fas.fa-volume-mute
             input(type="range", step="0.1", min="0", max="1")#volume
-            div 
-                span#currenTime 00:00
-                span  / 
-                span#totalTime 00:00
-            div
-                input(type="range", step="1", min="0")#timeLine
-            div 
-                button#fullScreen Click to FullScreen
-    
+
+            input(type="range", step="1", min="0")#timeLine.watch__timeLine
+            span#currenTime 00:00:00
+            span  / 
+            span#totalTime 00:00:00
+
+            
+            button#fullScreen
+                i.class.fas.fa-expand
+
 block scripts
     script(src="/static/js/videoPlayer.js")

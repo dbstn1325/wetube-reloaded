@@ -178,6 +178,32 @@ input[type=submit],
   color: azure;
 }
 
+#videoContainer:fullscreen video {
+  position: fixed;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+}
+#videoContainer:fullscreen a {
+  font-size: 30px;
+  margin-left: 10px;
+}
+#videoContainer:fullscreen .watch__timeLine {
+  width: 70%;
+  margin-left: 10px;
+}
+
+#videoContainer:not(:fullscreen) a {
+  font-size: 25px;
+  margin-right: 10px;
+}
+#videoContainer:not(:fullscreen) .watch__timeLine {
+  width: 265px;
+  margin-left: 10px;
+}
+
 .search__form {
   margin-bottom: 60px;
   display: flex;
