@@ -1,4 +1,5 @@
 #videoContainer:fullscreen{
+    box-sizing: border-box;
     video{
         position: fixed;
         min-width: 100%; min-height: 100%;
@@ -6,6 +7,10 @@
     }
     a{
         font-size:30px;
+        margin-left:10px;
+    }
+    #fullScreen{
+        font-size:20px;
         margin-left:10px;
     }
     .watch__timeLine{        
@@ -19,6 +24,11 @@
         font-size:25px;
         margin-right: 10px;
     }
+    #fullScreen{
+        font-size:20px;
+        margin-left:10px;
+    }
+
     .watch__timeLine{        
         width: 265px;
         margin-left: 10px;

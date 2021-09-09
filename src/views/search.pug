@@ -6,9 +6,9 @@ block content
         input(placeholder="Search Video", type="text", name="keyword")
         button
             i.fas.fa-search
-            
+        
     div.video-grid
         each video in videos
             +video(video)
-        else 
+        else
             span.empty__message No video found

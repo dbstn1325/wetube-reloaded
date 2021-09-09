@@ -178,6 +178,9 @@ input[type=submit],
   color: azure;
 }
 
+#videoContainer:fullscreen {
+  box-sizing: border-box;
+}
 #videoContainer:fullscreen video {
   position: fixed;
   min-width: 100%;
@@ -190,6 +193,10 @@ input[type=submit],
   font-size: 30px;
   margin-left: 10px;
 }
+#videoContainer:fullscreen #fullScreen {
+  font-size: 20px;
+  margin-left: 10px;
+}
 #videoContainer:fullscreen .watch__timeLine {
   width: 70%;
   margin-left: 10px;
@@ -198,6 +205,10 @@ input[type=submit],
 #videoContainer:not(:fullscreen) a {
   font-size: 25px;
   margin-right: 10px;
+}
+#videoContainer:not(:fullscreen) #fullScreen {
+  font-size: 20px;
+  margin-left: 10px;
 }
 #videoContainer:not(:fullscreen) .watch__timeLine {
   width: 265px;

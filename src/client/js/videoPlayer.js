@@ -2,6 +2,7 @@ import fetch from "node-fetch";
 
 const video = document.querySelector("video");
 const  playBtn = document.getElementById("play");
+const playIcon = playBtn.querySelector("i");                    //querySelctor   vs  HTML
 const  muteBtn = document.getElementById("mute");
 const  currenTime = document.getElementById("currenTime");
 const  totalTime = document.getElementById("totalTime");
@@ -22,7 +23,7 @@ const handlePlayClick = (e) =>{
     } else{
         video.pause();
     }
-    playBtn.innerHTML = video.paused ? '<i class="fas fa-play"></i>' : '<i class="fas fa-pause"></i>';
+    playIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
 }
 
 const handleMute = (e) =>{
@@ -121,6 +122,16 @@ const handleEnded = () => {
     });
 }
 
+const handleVideoClick = () => {
+    if(video.paused){
+        video.play();
+    }else{
+        video.pause();
+    }
+    
+    playIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
+}
+
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handleVolumeChange);
@@ -132,4 +143,5 @@ video.addEventListener("mousemove", handleMouseMove);
 video.addEventListener("mouseleave", handleMouseLeave);
 video.addEventListener("timeupdate", handleTimeUpdate);
 video.addEventListener("ended", handleEnded);
+video.addEventListener("click", handleVideoClick);
 
