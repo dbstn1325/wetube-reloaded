@@ -55,6 +55,7 @@ export const postEdit = async(req, res) => {
             description,
             hashtags:Video.modifyHashtags(hashtags),
         });
+        req.flash("info", "Success edit Profile!");
         return res.redirect(`/videos/${id}`);
     };
     return res.render("404", {pageTitle:`The process is false`});
@@ -103,6 +104,7 @@ export const postUpload = async(req, res) => {
         foundUser.save();
 
         //await video.save();       <-- new Video({  }) ( Video.create() )사용안할때
+        req.flash("info", "Success Upload");
         return res.redirect("/");
     }catch(error){
         console.log(error);
@@ -131,6 +133,7 @@ export const deleteVideo = async(req, res) => {
     }
 
     await Video.findByIdAndDelete(id);
+    req.flash("success", "Success Delete !");
     return res.redirect("/");
 };
 

@@ -32,6 +32,7 @@ export const postJoin = async(req, res) => {
             password2,
             location,
         });
+        req.flash("info", "Login now ~");
         return res.redirect("/login");
     }catch(error){
         res.status(400).render("404", {
@@ -67,7 +68,7 @@ export const postLogin = async(req, res) => {
     
     req.session.loggedIn=true;
     req.session.user=user;
-
+    req.flash("success", "Login Success");
     return res.redirect("/");
 }
 
@@ -142,6 +143,7 @@ export const finishGithubLogin = async(req, res) => {
             req.session.loggedIn=true;
             req.session.user=email;
             
+            req.flash("info", "Success Github Login");
             return res.redirect("/");
         }
 
@@ -201,6 +203,8 @@ export const postEdit = async(req, res) => {
 export const remove = (req, res) => res.send("Remove User");
 export const logout = (req, res) => {
     req.session.destroy();
+    
+    req.flash("info" , "Success Log out");
     res.redirect("/");
 }
 
@@ -235,7 +239,7 @@ export const postChangePassword = async(req, res) => {
     await user.save();
     req.session.user.password1=newPassword;
     
-
+    req.flash("info", "Success Change Password");
     return res.redirect("/");
 }
 
@@ -252,7 +256,7 @@ export const see = async(req, res) => {
     }
     return res.render("users/profile", {
         pageTitle : `User Profile`,
-        foundUser
+        foundUser,
     });
 
 }

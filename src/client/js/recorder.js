@@ -49,6 +49,6 @@ const init = async() =>{
     preview.play();
 }
 
-init();
+//init();
 
 startBtn.addEventListener("click", handleStartBtn);

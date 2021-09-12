@@ -19,3 +19,36 @@
         }
     }
 }
+
+@keyframes goAway{
+    from{
+        transform:none;
+        opacity: 1;
+    }
+    to{
+        transform:translateY(-50px);
+        opacity: 0;
+    }
+}
+
+
+.messages-mixin{
+    position:absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: 0 auto;
+    padding: 10px 20px;
+    top:10px;
+
+
+    border-radius: 10000px;
+    max-width:200px;
+    &.error{
+        background-color: tomato;
+        color:white;  
+    }
+    animation: goAway 0.5s ease-in-out forwards;
+    animation-delay: 0.5s;
+    
+}
