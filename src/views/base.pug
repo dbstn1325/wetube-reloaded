@@ -10,9 +10,9 @@ html(lang="ko")
         if messages.error
             +messages("error", messages.error)
         if messages.info 
-            +message("info", messages.info)
+            +messages("info", messages.info)
         if messages.success 
-            +message("success", messages.success)
+            +messages("success", messages.success)
         include partials/header.pug
         main
             block content

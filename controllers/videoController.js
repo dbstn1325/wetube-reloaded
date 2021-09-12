@@ -119,7 +119,7 @@ export const postUpload = async(req, res) => {
 
 export const deleteVideo = async(req, res) => {
     const { id } = req.params;
-    const { 
+    const {
         user : { _id },
     } = req.session;
     const video = await Video.findById(id);

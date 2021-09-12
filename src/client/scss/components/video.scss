@@ -48,6 +48,14 @@
         background-color: tomato;
         color:white;  
     }
+    &.success{
+        background-color: skyblue;
+        color:white;
+    }
+    &.info{
+        background-color: purple;
+        color:white;
+    }
     animation: goAway 0.5s ease-in-out forwards;
     animation-delay: 0.5s;
     

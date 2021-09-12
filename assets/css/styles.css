@@ -135,6 +135,14 @@ footer {
   background-color: tomato;
   color: white;
 }
+.messages-mixin.success {
+  background-color: skyblue;
+  color: white;
+}
+.messages-mixin.info {
+  background-color: purple;
+  color: white;
+}
 
 .empty__message {
   margin-bottom: 50px;

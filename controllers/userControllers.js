@@ -4,12 +4,15 @@ import bcrypt from "bcrypt";
 import fetch from "node-fetch";
 import { restart } from "nodemon";
 
-export const getJoin = (req, res) => { res.render("join", { pageTitle : "join" } );
+export const getJoin = (req, res) => { 
+    return res.render("join", { pageTitle : "join" } );
 }
 export const postJoin = async(req, res) => {
     const { userid, email, username, password1, password2, location } = req.body;
     const pageTitle="Join";
     
+    
+
     if(password1!==password2){
         return res.status(400).render("join", {
             pageTitle,
@@ -32,12 +35,14 @@ export const postJoin = async(req, res) => {
             password2,
             location,
         });
+
         req.flash("info", "Login now ~");
         return res.redirect("/login");
     }catch(error){
-        res.status(400).render("404", {
+        console.log(req.session);
+        return res.status(400).render("404", {
             pageTitle,
-            errorMessage:"The Process is wrong."
+            errorMessage: "Error",
         });
     }
 }
@@ -203,9 +208,7 @@ export const postEdit = async(req, res) => {
 export const remove = (req, res) => res.send("Remove User");
 export const logout = (req, res) => {
     req.session.destroy();
-    
-    req.flash("info" , "Success Log out");
-    res.redirect("/");
+    return res.redirect("/");
 }
 
 export const getChangePassword = (req, res) => {
