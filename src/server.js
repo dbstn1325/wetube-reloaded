@@ -2,11 +2,11 @@ import express from "express";
 import morgan from "morgan";
 import flash from "express-flash";
 import session from "express-session";
-import MongoStore from "connect-mongo";
-import rootRouter from "../routers/rootRouter";
-import userRouter from "../routers/userRotuer";
-import videoRouter from "../routers/videoRouter";
-import apiRouter from "../routers/apiRouter";
+import MongoStore from "connect-mongo"; 
+import rootRouter from "./routers/rootRouter";
+import userRouter from "./routers/userRotuer";
+import videoRouter from "./routers/videoRouter";
+import apiRouter from "./routers/apiRouter";
 import { localsMiddleware } from "./middleware";
 
 

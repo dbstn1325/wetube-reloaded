@@ -4,7 +4,7 @@ import {
     startGithubLogin, finishGithubLogin,
     getChangePassword, postChangePassword
 } from "../controllers/userControllers";
-import { protectorMiddleware, publicMiddleware, avatarUpload } from "../src/middleware";
+import { protectorMiddleware, publicMiddleware, avatarUpload } from "../middleware";
 
 const userRouter = express.Router();
 

@@ -2,7 +2,6 @@ import User from "../models/User";
 import Video from "../models/Video";
 import bcrypt from "bcrypt";
 import fetch from "node-fetch";
-import { restart } from "nodemon";
 
 export const getJoin = (req, res) => { 
     return res.render("join", { pageTitle : "join" } );

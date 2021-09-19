@@ -1,7 +1,7 @@
 import express from "express";
 import { home, getSearch, postSearch } from "../controllers/videoController";
 import { getJoin, postJoin, getLogin, postLogin } from "../controllers/userControllers";
-import { protectorMiddleware, publicMiddleware } from "../src/middleware";
+import { protectorMiddleware, publicMiddleware } from "../middleware";
 
 const rootRouter = express.Router();
 

@@ -1,7 +1,6 @@
 import Video from "../models/Video";
 import User from "../models/User";
-import { modifyHashtags } from "../models/Video";
-import { Mongoose } from "mongoose";
+
 
 export const home = async(req, res) => {
     const videos = await Video.find({}).sort({createdAt:"desc"}).populate("owner");
