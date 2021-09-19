@@ -16,10 +16,18 @@ block content
             span  / 
             span#totalTime 00:00:00
 
-            
             span#fullScreen
                 i.class.fas.fa-expand
+            if(loggedIn)
+                div.video__comment
+                    form.video__comment-form#commentForm
+                        textarea(cols="30", rows="10", placeholder="Write to Comment")
+                        button Add Comment
 
 block scripts
     script(src="/static/js/videoPlayer.js")
+    if(loggedIn)
+        script(src="/static/js/CommentSection.js")
+    
+    
     
