@@ -26,7 +26,7 @@ export const postJoin = async(req, res) => {
         });
     }
     try{
-        await User.create({
+        const user = await User.create({
             userid,
             email,
             username,
@@ -34,11 +34,11 @@ export const postJoin = async(req, res) => {
             password2,
             location,
         });
+        
 
         req.flash("info", "Login now ~");
         return res.redirect("/login");
     }catch(error){
-        console.log(req.session);
         return res.status(400).render("404", {
             pageTitle,
             errorMessage: "Error",

@@ -251,6 +251,23 @@ input[type=submit],
   margin-left: 10px;
 }
 
+.video__comments {
+  max-width: 270px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.video__comments .video__comment {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 50px;
+  background-color: white;
+  color: black;
+}
+
 .search__form {
   margin-bottom: 60px;
   display: flex;
