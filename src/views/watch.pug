@@ -5,24 +5,29 @@ block content
     div#videoContainer(data-id=video._id).watch__form
         video(src="/" + video.fileUrl)
         div#videoControls
-            a#play
-                i.class.fas.fa-play
-            a#mute
-                i.class.fas.fa-volume-mute
-            input(type="range", step="0.1", value="0.5", min="0", max="1")#volume
+            div.watch__controls
+                a#play
+                    i.class.fas.fa-play
+                a#mute
+                    i.class.fas.fa-volume-mute
+                input(type="range", step="0.1", value="0.5", min="0", max="1")#volume
+                input(type="range", value="0", step="1", min="0")#timeLine.watch__timeLine
+                div.watch__controls-time
+                    span#currenTime 00:00:00
+                    span  /
+                    span#totalTime 00:00:00
+                
+                
 
-            input(type="range", value="0", step="1", min="0")#timeLine.watch__timeLine
-            span#currenTime 00:00:00
-            span  / 
-            span#totalTime 00:00:00
+                
 
-            span#fullScreen
-                i.class.fas.fa-expand
+                span#fullScreen
+                    i.class.fas.fa-expand
             if(loggedIn)
-                div.video__add-comment
-                    form.video__comment-form#commentForm
-                        textarea(cols="30", rows="10", placeholder="Write to Comment")
-                        button Add Comment
+            div.video__add-comment
+                form.video__comment-form#commentForm
+                    textarea(cols="30", rows="10", placeholder="Write to Comment")
+                    button Add Comment
 
             div.video__comments
                 each item in video.comments
