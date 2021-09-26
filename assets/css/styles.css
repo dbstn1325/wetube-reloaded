@@ -214,10 +214,6 @@ input[type=submit],
   color: azure;
 }
 
-#videoControls {
-  width: 100%;
-}
-
 .watch__form {
   width: 100%;
   position: relative;
@@ -226,19 +222,20 @@ input[type=submit],
   width: 100%;
 }
 .watch__form .watch__controls {
+  border-radius: 10px;
+  border: 2px solid white;
   align-items: center;
-  width: 100%;
+  width: 50%;
   display: flex;
   padding: 10px;
   justify-content: center;
   flex-flow: row nowrap;
   margin: 0 auto;
   letter-spacing: 10px;
+  margin-top: 10px;
   left: 0;
   right: 0;
   grid-template-columns: 1fr 4fr 1fr auto;
-  border-radius: 10px;
-  box-sizing: border-box;
   background-color: black;
 }
 .watch__form .watch__controls a {
@@ -251,6 +248,9 @@ input[type=submit],
 .watch__form .watch__controls .watch__controls-time {
   margin-left: 10px;
   letter-spacing: 5px;
+}
+.watch__form .watch__controls #fullScreen {
+  margin-left: 10px;
 }
 
 .video__comments {
