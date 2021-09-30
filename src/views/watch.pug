@@ -17,24 +17,23 @@ block content
                     span  /
                     span#totalTime 00:00:00
                 
-                
-
-                
-
                 span#fullScreen
                     i.class.fas.fa-expand
             if(loggedIn)
-            div.video__add-comment
-                form.video__comment-form#commentForm
-                    textarea(cols="30", rows="10", placeholder="Write to Comment")
-                    button Add Comment
+                div.video__add-comment
+                    form.video__comment-form#commentForm
+                        textarea(cols="30", rows="10", placeholder="Write to Comment")
+                        button Add Comment
 
             div.video__comments
-                each item in video.comments
-                    h4.video__comment
-                        i.class.fas.fa-comments
-                        |  #{item.text}
-                    
+                ul
+                    each item in video.comments
+                        li.video__comment
+                            i.class.fas.fa-comments
+                            span.video__comments-text
+                                | #{item.text}
+                            i.class.fas.fa-trash-alt
+                        
                 
 
 block scripts
