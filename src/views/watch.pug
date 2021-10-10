@@ -27,12 +27,13 @@ block content
 
             div.video__comments
                 ul
-                    each item in video.comments
-                        li.video__comment
+                    each comment in video.comments
+                        li#oneComment(data-id=comment._id).video__comment
                             i.class.fas.fa-comments
                             span.video__comments-text
-                                | #{item.text}
+                                | #{comment.text}
                             i.class.fas.fa-trash-alt
+                            
                         
                 
 

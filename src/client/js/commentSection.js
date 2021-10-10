@@ -1,32 +1,44 @@
-import { text } from "express";
-import Video from "../../models/Video";
-
 const form = document.getElementById("commentForm");
 
 const videoContainer = document.getElementById("videoContainer");
 
 
-const trashIcon = document.createElement("i");
 
-const addComment = (text) =>{
+
+const addComment = (text, commentId) =>{
     const videoComment=document.querySelector(".video__comments ul");
     const li = document.createElement("li");
     const i = document.createElement("i");
     const span = document.createElement("span");
+    const trashIcon = document.createElement("i");
     
+
+    // const span2 = dcoument.createElement("span2");
     
     i.className="class fas fa-comments";
     trashIcon.className="class fas fa-trash-alt";
     li.className="video__comment";
+    li.dataset.id = commentId;
+
     span.innerText = `${text}`;
     li.appendChild(i);
     li.appendChild(span);
     li.appendChild(trashIcon);
     
     videoComment.prepend(li);
+    trashIcon.addEventListener("click", handleDelete);
+    // console.log(videoComment);
+}
+const handleDelete = async(event) =>{
+    const videoComment = document.querySelector(".video__comments ul");
+    li=event.currentTarget.parentNode;
+    commentId=li.dataset.id
 
-    console.log(videoComment);
-
+    videoComment.removeChild(li);
+    await fetch(`/api/${commentId}/comment`,{
+        method:"DELETE",
+    });
+    
 }
 
 const handleSubmit = async(event) => {
@@ -36,8 +48,6 @@ const handleSubmit = async(event) => {
     event.preventDefault();
     const text = textarea.value;
     const videoId = videoContainer.dataset.id;
-    
-    
     
     if(text==""){
         return ;
@@ -52,8 +62,12 @@ const handleSubmit = async(event) => {
     });
     textarea.value="";
     const status = response.status;
-    if(status=='201'){
-        addComment(text);
+    
+    
+    if(status==201){
+        const json=await response.json();
+        addComment(text, json.commentId);
+        
     }
     
     //window.location.reload();
@@ -61,19 +75,7 @@ const handleSubmit = async(event) => {
     
 }
 
-const handleDelete = async(event) => {
-    const videoId=videoContainer.dataset.id;
-    
-    await fetch(`/api/videos/${videoId}/deleteComment`,{
-        method:"POST",
-        body:text,
-    });
-    
-    
-    
-}
 if(form){
     form.addEventListener("submit", handleSubmit);
-    trashIcon.addEventListener("click", handleDelete);
 }
 
